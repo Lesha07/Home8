@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 class CounterFileOperations
 {
-    private const string CounterFileName = "counter.txt";
+    public const string CounterFileName = "counter.txt";
 
     static async Task Main()
     {
@@ -22,7 +22,7 @@ class CounterFileOperations
         Console.WriteLine($"Asynchronous operations completed in {asyncStopwatch.ElapsedMilliseconds} ms");
     }
 
-    private static void PerformSynchronousOperations()
+    public static void PerformSynchronousOperations()
     {
         int counter = GetCounter();
         string newFileName = $"file_{counter}.txt";
@@ -32,7 +32,7 @@ class CounterFileOperations
         DeleteFile(newFileName);
     }
 
-    private static async Task PerformAsynchronousOperations()
+    public static async Task PerformAsynchronousOperations()
     {
         int counter = await GetCounterAsync();
         string newFileName = $"file_{counter}.txt";
@@ -42,7 +42,7 @@ class CounterFileOperations
         await DeleteFileAsync(newFileName);
     }
 
-    private static int GetCounter()
+    public static int GetCounter()
     {
         if (!File.Exists(CounterFileName))
         {
@@ -54,7 +54,7 @@ class CounterFileOperations
         return int.Parse(counterText);
     }
 
-    private static async Task<int> GetCounterAsync()
+    public static async Task<int> GetCounterAsync()
     {
         if (!File.Exists(CounterFileName))
         {
@@ -66,34 +66,34 @@ class CounterFileOperations
         return int.Parse(counterText);
     }
 
-    private static void CreateFile(string fileName, int counter)
+    public static void CreateFile(string fileName, int counter)
     {
         File.WriteAllText(fileName, counter.ToString());
     }
 
-    private static async Task CreateFileAsync(string fileName, int counter)
+    public static async Task CreateFileAsync(string fileName, int counter)
     {
         await File.WriteAllTextAsync(fileName, counter.ToString());
     }
 
-    private static void IncrementCounter(int currentCounter)
+    public static void IncrementCounter(int currentCounter)
     {
         int newCounter = currentCounter + 1;
         File.WriteAllText(CounterFileName, newCounter.ToString());
     }
 
-    private static async Task IncrementCounterAsync(int currentCounter)
+    public static async Task IncrementCounterAsync(int currentCounter)
     {
         int newCounter = currentCounter + 1;
         await File.WriteAllTextAsync(CounterFileName, newCounter.ToString());
     }
 
-    private static void DeleteFile(string fileName)
+    public static void DeleteFile(string fileName)
     {
         File.Delete(fileName);
     }
 
-    private static async Task DeleteFileAsync(string fileName)
+    public static async Task DeleteFileAsync(string fileName)
     {
         await Task.Run(() => File.Delete(fileName));
     }
